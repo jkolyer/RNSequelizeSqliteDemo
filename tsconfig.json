@@ -1,0 +1,17 @@
+{
+  "exclude": ["node_modules", "**/__tests__/*", "package.json"],
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "outputs",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "ESNEXT",
+    "module": "commonjs",
+    "strict": true,
+    "jsx": "react-native",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "declaration": true
+  }
+}
