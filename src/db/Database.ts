@@ -3,8 +3,8 @@
  * Copyright (c) 2018 Bruce Lefebvre <bruce@brucelefebvre.com>
  * https://github.com/blefebvre/react-native-sqlite-demo/blob/master/LICENSE
  */
-import SQLite from 'react-native-sqlite-storage';
-import { SchemaBuddy } from './migrations/SchemaBuddy';
+import * as SQLite from 'react-native-sqlite-storage';
+import SchemaBuddy from './migrations/SchemaBuddy';
 import { IUser } from '../types/IUser';
 import { IJsonData } from '../types/IJsonData';
 import { DropboxDatabaseSync } from '../sync/dropbox/DropboxDatabaseSync';
@@ -29,9 +29,11 @@ export interface Database {
 class DatabaseImpl implements Database {
   private database: SQLite.SQLiteDatabase | undefined;
   private databaseSync: DropboxDatabaseSync;
+  private schemaBuddy: SchemaBuddy;
 
   constructor() {
     this.databaseSync = new DropboxDatabaseSync();
+    this.schemaBuddy = new SchemaBuddy();
   }
 
   // Open the connection to the database
