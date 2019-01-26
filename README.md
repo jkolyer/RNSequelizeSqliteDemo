@@ -11,6 +11,9 @@
 ### Use [react-native-fs](https://github.com/itinance/react-native-fs) to lookup db file location for sequelize
 ### Manual schema migration
 
+* src/db/database.boot from schema.json
+* src/db/sequelize.boot
+
 ## Create pre-loaded DB using [react-native-sqlite-storage](https://github.com/andpor/react-native-sqlite-storage)
 ### Sequelize migrations
 

@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint -p tsconfig.json"
   },
   "dependencies": {
     "react": "16.6.3",
-    "react-native": "0.58.1"
+    "react-native": "0.58.1",
+    "react-native-sqlite-storage": "^3.3.9",
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.13",
@@ -21,6 +24,7 @@
     "prettier": "^1.16.1",
     "react-native-typescript-transformer": "^1.2.11",
     "react-test-renderer": "16.6.3",
+    "sequelize-cli": "^5.4.0",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
