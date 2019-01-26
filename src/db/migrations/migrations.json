@@ -1,0 +1,7 @@
+[
+  [
+    "CREATE TABLE IF NOT EXISTS DbVersion(version_id INTEGER PRIMARY KEY NOT NULL, version STRING)",
+    "CREATE TABLE IF NOT EXISTS JsonData(data_id INTEGER PRIMARY KEY NOT NULL, data TEXT, owner_id INTEGER)",
+    "CREATE TABLE IF NOT EXISTS User(user_id INTEGER PRIMARY KEY NOT NULL, authToken TEXT)"
+  ]
+]

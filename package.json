@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
+    "jest:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "lint": "tslint -p tsconfig.json"
   },
   "dependencies": {
@@ -18,8 +19,8 @@
     "@types/react": "^16.7.20",
     "@types/react-native": "^0.57.32",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "24.0.0",
-    "jest": "24.0.0",
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.51.1",
     "prettier": "^1.16.1",
     "react-native-typescript-transformer": "^1.2.11",
