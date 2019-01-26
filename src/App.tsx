@@ -2,12 +2,12 @@
  * React Native Sequelize SQLite Demo
  * Copyright (c) 2019 Jonathan Kolyer
  */
-import React, { Component } from "react";
-import { AppState, StyleSheet, SafeAreaView, Text } from "react-native";
-import { database } from "./database/Database";
-// import { AllLists } from "./components/AllLists";
-import { DatabaseSynchronizer } from "./database/DatabaseSynchronizer";
-import { LoadingScreen } from "./components/LoadingScreen";
+import React, { Component } from 'react';
+import { AppState, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { database } from './database/Database';
+// import { AllLists } from './components/AllLists';
+import { DatabaseSynchronizer } from './database/DatabaseSynchronizer';
+import { LoadingScreen } from './components/LoadingScreen';
 
 interface State {
   appState: string;
@@ -25,7 +25,7 @@ export default class App extends Component<object, State> {
       appState: AppState.currentState,
       databaseIsReady: false,
       loading: false,
-      loadingText: "Loading..."
+      loadingText: 'Loading...'
     };
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
     this.prepareForDatabaseUpdate = this.prepareForDatabaseUpdate.bind(this);
@@ -38,15 +38,15 @@ export default class App extends Component<object, State> {
     // App is starting up
     this.appIsNowRunningInForeground();
     this.setState({
-      appState: "active"
+      appState: 'active'
     });
     // Listen for app state changes
-    AppState.addEventListener("change", this.handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
   }
 
   public componentWillUnmount() {
     // Remove app state change listener
-    AppState.removeEventListener("change", this.handleAppStateChange);
+    AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
   public render() {
@@ -67,12 +67,12 @@ export default class App extends Component<object, State> {
   private handleAppStateChange(nextAppState: string) {
     if (
       this.state.appState.match(/inactive|background/) &&
-      nextAppState === "active"
+      nextAppState === 'active'
     ) {
       // App has moved from the background (or inactive) into the foreground
       this.appIsNowRunningInForeground();
     } else if (
-      this.state.appState === "active" &&
+      this.state.appState === 'active' &&
       nextAppState.match(/inactive|background/)
     ) {
       // App has moved from the foreground into the background (or become inactive)
@@ -83,7 +83,7 @@ export default class App extends Component<object, State> {
 
   // Function to run when the app is brought to the foreground
   private appIsNowRunningInForeground() {
-    console.log("App is now running in the foreground!");
+    console.log('App is now running in the foreground!');
 
     // Check for an update to the database
     this.databaseSynchronizer.syncDatabase();
@@ -98,14 +98,14 @@ export default class App extends Component<object, State> {
 
   // Function to run when the app is sent to the background
   private appHasGoneToTheBackground() {
-    console.log("App has gone to the background.");
+    console.log('App has gone to the background.');
     database.close();
   }
 
   private prepareForDatabaseUpdate(): Promise<void> {
     this.setState({
       loading: true,
-      loadingText: "Downloading database..."
+      loadingText: 'Downloading database...'
     });
     return database.close();
   }
