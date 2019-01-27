@@ -10,9 +10,9 @@
     "lint": "tslint -p tsconfig.json"
   },
   "dependencies": {
-    "react": "16.6.0-alpha.8af6728",
-    "react-native": "0.57.4",
-    "react-native-sqlite-storage": "3.3.7",
+    "react": "16.7.0",
+    "react-native": "0.58.1",
+    "react-native-sqlite-storage": "3.3.9",
     "sequelize": "^4.42.0"
   },
   "devDependencies": {
