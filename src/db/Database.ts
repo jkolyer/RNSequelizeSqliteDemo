@@ -4,7 +4,7 @@
  * https://github.com/blefebvre/react-native-sqlite-demo/blob/master/LICENSE
  */
 // import * as reactNativeSqliteStorage from 'react-native-sqlite-storage';
-import * as SQLite from 'react-native-sqlite-storage';
+import SQLite from 'react-native-sqlite-storage';
 import SchemaBuddy from './migrations/SchemaBuddy';
 
 // const SQLite = reactNativeSqliteStorage.default
@@ -24,22 +24,19 @@ class DatabaseImpl implements IDatabase {
   }
 
   // Open the connection to the database
-  public open(): Promise<SQLite.SQLiteDatabase> {
+  public async open(): Promise<SQLite.SQLiteDatabase> {
     // SQLite.DEBUG(true);
     // SQLite.enablePromise(true);
     
-    let databaseInstance: SQLite.SQLiteDatabase;
     console.log('*** open');
 
-    SQLite.openDatabase({
+    const db = await SQLite.openDatabase({
      name: DB_FILE_NAME,
       location: 'default'
-    }).then((DB) => {
-      databaseInstance = DB;
-      return DB
     }).catch((error) => {
         console.log(error);
     });
+    this.schemaBuddy.processMigrations(db)
     
     /*
     SQLite.openDatabase({

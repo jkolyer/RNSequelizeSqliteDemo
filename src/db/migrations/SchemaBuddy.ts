@@ -1,4 +1,4 @@
-import * as SQLite from 'react-native-sqlite-storage';
+import SQLite from 'react-native-sqlite-storage';
 
 import * as migrations from './migrations.json'
 
@@ -15,9 +15,9 @@ export default class SchemaBuddy {
   }
 
   public async processMigrations(database: SQLite.SQLiteDatabase) {
-    
     this.database = database
     this.dbVersion = await this.getDatabaseVersion(this.database);
+    console.log(`*** processMigrations:  this.dbVersion = ${this.dbVersion}`)
 
     for (let versionIdx = 0; versionIdx <= this.dbVersion; versionIdx+=1) {
       const dbStatements: string[] = migrations[versionIdx]
@@ -28,6 +28,7 @@ export default class SchemaBuddy {
       
       for (let stmtIdx = 0; stmtIdx < numStmt; stmtIdx+=1) {
         const stmt = dbStatements[stmtIdx]
+        console.log(`*** processMigrations:  ${stmt}`)
         
         await database.transaction((transaction: SQLite.Transaction) => {
           transaction.executeSql(stmt)
@@ -36,6 +37,7 @@ export default class SchemaBuddy {
           console.log(`Transaction failed (${stmt}). Details: ${error}`);
           return 0;
         });
+        console.log(`*** processMigrations:  ${stmt} complete`)
       }
     }
   }

@@ -75,25 +75,14 @@ export default class App extends React.Component<object, IState> {
   // Function to run when the app is brought to the foreground
   private appIsNowRunningInForeground() {
     console.log('App is now running in the foreground!');
-
-    SQLite.openDatabase({
-      name: 'sqlitedemo.db',
-      location: 'default'
-    }).then((DB) => {
-        console.log(`*** sucess ${DB}`);
-      return DB
-    }).catch((error) => {
-        console.log(error);
-    });
     
     // Do not wait for database sync to complete. Instead, open DB and show app content.
-    /*
+
     return database.open().then(() =>
       this.setState({
         databaseIsReady: true
       })
     );
-    */
   }
 
   // Function to run when the app is sent to the background
