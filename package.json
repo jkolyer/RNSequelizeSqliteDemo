@@ -2,6 +2,7 @@
   "name": "RNSequelizeSqliteDemo",
   "version": "0.0.1",
   "private": true,
+  "types": "src/types",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -9,9 +10,9 @@
     "lint": "tslint -p tsconfig.json"
   },
   "dependencies": {
-    "react": "16.6.3",
-    "react-native": "0.58.1",
-    "react-native-sqlite-storage": "^3.3.9",
+    "react": "16.6.0-alpha.8af6728",
+    "react-native": "0.57.4",
+    "react-native-sqlite-storage": "3.3.7",
     "sequelize": "^4.42.0"
   },
   "devDependencies": {

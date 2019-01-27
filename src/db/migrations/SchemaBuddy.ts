@@ -3,8 +3,8 @@ import * as SQLite from 'react-native-sqlite-storage';
 import * as migrations from './migrations.json'
 
 export default class SchemaBuddy {
-  dbVersion: number
-  database: SQLite.SQLiteDatabase | undefined
+  public dbVersion: number
+  private database: SQLite.SQLiteDatabase | undefined
   
   constructor() {
     this.dbVersion = 0
@@ -15,17 +15,18 @@ export default class SchemaBuddy {
   }
 
   public async processMigrations(database: SQLite.SQLiteDatabase) {
+    
     this.database = database
     this.dbVersion = await this.getDatabaseVersion(this.database);
 
-    for (let versionIdx = 0; versionIdx <= this.dbVersion; versionIdx++) {
-      const dbStatements: Array<string> = migrations[versionIdx]
+    for (let versionIdx = 0; versionIdx <= this.dbVersion; versionIdx+=1) {
+      const dbStatements: string[] = migrations[versionIdx]
       if (!dbStatements) {
         break
       }
-      let numStmt = dbStatements.length
+      const numStmt = dbStatements.length
       
-      for (let stmtIdx = 0; stmtIdx < numStmt; stmtIdx++) {
+      for (let stmtIdx = 0; stmtIdx < numStmt; stmtIdx+=1) {
         const stmt = dbStatements[stmtIdx]
         
         await database.transaction((transaction: SQLite.Transaction) => {
@@ -44,7 +45,7 @@ export default class SchemaBuddy {
     // Select the highest version number from the version table
     return database
       .executeSql('SELECT version FROM DbVersion ORDER BY version DESC LIMIT 1;')
-      .then(([results]: Array<any>) => {
+      .then(([results]: any[]) => {
         if (results.rows && results.rows.length > 0) {
           const version = results.rows.item(0).version;
           return version;

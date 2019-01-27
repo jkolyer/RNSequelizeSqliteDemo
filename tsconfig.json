@@ -6,12 +6,20 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "target": "ESNEXT",
-    "module": "commonjs",
+    "target": "ES6",
     "strict": true,
     "jsx": "react-native",
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "declaration": true
+    "typeRoots": ["node_modules/@types", "src/types", "@types"],
+    "allowJs": true,
+    "isolatedModules": true,
+    "lib": ["es6"],
+    "noEmit": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "react-native-sqlite-storage": ["node_modules/@types/react-native-sqlite-storage"]
+    }
   }
 }

@@ -1,23 +1,18 @@
-/**
- * React Native Sequelize SQLite Demo
- * Copyright (c) 2019 Jonathan Kolyer
- */
-import React, { Component } from 'react';
-import { AppState, StyleSheet, SafeAreaView, Text } from 'react-native';
-import { database } from './database/Database';
-// import { AllLists } from './components/AllLists';
-import { DatabaseSynchronizer } from './database/DatabaseSynchronizer';
+import * as React from 'react';
+import { AppState, SafeAreaView, StyleSheet, Text } from 'react-native';
 import { LoadingScreen } from './components/LoadingScreen';
+import { database } from './db/Database';
+// import { AllLists } from './components/AllLists';
+import SQLite from 'react-native-sqlite-storage';
 
-interface State {
+interface IState {
   appState: string;
   databaseIsReady: boolean;
   loading: boolean;
   loadingText: string;
 }
 
-export default class App extends Component<object, State> {
-  private databaseSynchronizer: DatabaseSynchronizer;
+export default class App extends React.Component<object, IState> {
 
   constructor(props: any) {
     super(props);
@@ -29,9 +24,6 @@ export default class App extends Component<object, State> {
     };
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
     this.prepareForDatabaseUpdate = this.prepareForDatabaseUpdate.bind(this);
-    this.databaseSynchronizer = new DatabaseSynchronizer(
-      this.prepareForDatabaseUpdate
-    );
   }
 
   public componentDidMount() {
@@ -51,16 +43,15 @@ export default class App extends Component<object, State> {
 
   public render() {
     // Once the database is ready, show the Lists
-    if (this.state.databaseIsReady && this.state.loading === false) {
+    if (this.state.databaseIsReady && !this.state.loading) {
       return (
         <SafeAreaView style={styles.container}>
           <Text>DB is ready!</Text>
         </SafeAreaView>
       );
-    } else {
-      // Else, show a loading screen
-      return <LoadingScreen text={this.state.loadingText} />;
     }
+    // Else, show a loading screen
+    return <LoadingScreen text={this.state.loadingText} />;
   }
 
   // Handle the app going from foreground to background, and vice versa.
@@ -85,15 +76,24 @@ export default class App extends Component<object, State> {
   private appIsNowRunningInForeground() {
     console.log('App is now running in the foreground!');
 
-    // Check for an update to the database
-    this.databaseSynchronizer.syncDatabase();
-
+    SQLite.openDatabase({
+      name: 'sqlitedemo.db',
+      location: 'default'
+    }).then((DB) => {
+        console.log(`*** sucess ${DB}`);
+      return DB
+    }).catch((error) => {
+        console.log(error);
+    });
+    
     // Do not wait for database sync to complete. Instead, open DB and show app content.
+    /*
     return database.open().then(() =>
       this.setState({
         databaseIsReady: true
       })
     );
+    */
   }
 
   // Function to run when the app is sent to the background
