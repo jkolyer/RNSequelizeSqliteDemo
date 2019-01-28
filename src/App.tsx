@@ -3,7 +3,6 @@ import { AppState, SafeAreaView, StyleSheet, Text } from 'react-native';
 import { LoadingScreen } from './components/LoadingScreen';
 import { database } from './db/Database';
 // import { AllLists } from './components/AllLists';
-import SQLite from 'react-native-sqlite-storage';
 
 interface IState {
   appState: string;
@@ -73,16 +72,15 @@ export default class App extends React.Component<object, IState> {
   }
 
   // Function to run when the app is brought to the foreground
-  private appIsNowRunningInForeground() {
+  private async appIsNowRunningInForeground() {
     console.log('App is now running in the foreground!');
     
     // Do not wait for database sync to complete. Instead, open DB and show app content.
 
-    return database.open().then(() =>
-      this.setState({
-        databaseIsReady: true
-      })
-    );
+    await database.open()
+    this.setState({
+      databaseIsReady: true
+    })
   }
 
   // Function to run when the app is sent to the background

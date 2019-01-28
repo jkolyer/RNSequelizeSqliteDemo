@@ -1,10 +1,22 @@
-/**
- * React Native SQLite Demo
- * Copyright (c) 2018 Bruce Lefebvre <bruce@brucelefebvre.com>
- * https://github.com/blefebvre/react-native-sqlite-demo/blob/master/LICENSE
- */
-export interface IUser {
-  name: string;
-  email: string;
-  id: string;
+import {Column, CreatedAt, Model, Table, UpdatedAt } from 'sequelize-typescript';
+
+@Table
+export default class User extends Model<User> {
+  @Column
+  public userId: string;
+
+  @Column
+  public name: string;
+
+  @Column
+  public authToken: string;
+
+  @CreatedAt
+  @Column
+  public createdAt: Date;
+
+  @UpdatedAt
+  @Column
+  public updatedAt: Date;
+  
 }

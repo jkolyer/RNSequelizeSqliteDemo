@@ -1,10 +1,10 @@
-import SQLite from 'react-native-sqlite-storage';
+import reactNativeSqliteStorage from 'react-native-sqlite-storage';
 
 import * as migrations from './migrations.json'
 
 export default class SchemaBuddy {
   public dbVersion: number
-  private database: SQLite.SQLiteDatabase | undefined
+  private database: reactNativeSqliteStorage.SQLiteDatabase | undefined
   
   constructor() {
     this.dbVersion = 0
@@ -14,7 +14,7 @@ export default class SchemaBuddy {
     return migrations
   }
 
-  public async processMigrations(database: SQLite.SQLiteDatabase) {
+  public async processMigrations(database: reactNativeSqliteStorage.SQLiteDatabase) {
     this.database = database
     this.dbVersion = await this.getDatabaseVersion(this.database);
     console.log(`*** processMigrations:  this.dbVersion = ${this.dbVersion}`)
@@ -30,7 +30,7 @@ export default class SchemaBuddy {
         const stmt = dbStatements[stmtIdx]
         console.log(`*** processMigrations:  ${stmt}`)
         
-        await database.transaction((transaction: SQLite.Transaction) => {
+        await database.transaction((transaction: reactNativeSqliteStorage.Transaction) => {
           transaction.executeSql(stmt)
           
         }).catch((error: any) => {
@@ -43,7 +43,7 @@ export default class SchemaBuddy {
   }
 
   // Get the version of the database, as specified in the Version table
-  public getDatabaseVersion(database: SQLite.SQLiteDatabase): Promise<number> {
+  public getDatabaseVersion(database: reactNativeSqliteStorage.SQLiteDatabase): Promise<number> {
     // Select the highest version number from the version table
     return database
       .executeSql('SELECT version FROM DbVersion ORDER BY version DESC LIMIT 1;')

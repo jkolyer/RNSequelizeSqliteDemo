@@ -20,6 +20,8 @@
     "baseUrl": ".",
     "paths": {
       "react-native-sqlite-storage": ["node_modules/@types/react-native-sqlite-storage"]
-    }
+    },
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }
